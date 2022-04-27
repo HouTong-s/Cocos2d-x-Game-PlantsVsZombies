@@ -62,7 +62,6 @@ list(APPEND GAME_SOURCE
     Classes/StartScene.cpp
     Classes/VictoryScene.cpp
     Classes/GameScene.cpp
-    Classes/Board/DataStructures.cpp
     Classes/Plants/DoubleShooter.cpp
     Classes/Plants/IcePea.cpp
     Classes/Plants/IceShooter.cpp
