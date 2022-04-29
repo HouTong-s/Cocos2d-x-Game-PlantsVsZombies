@@ -381,7 +381,7 @@ bool GameScene::init()
         for(int j=0;j<9;j++)
         {
             auto plantTemp = Sprite::create("草地块.png");
-            plantTemp->setPosition(MyLeft+101*j, MyTop-118*i);
+            plantTemp->setPosition(MyLeft+103*j, MyTop-121*i);
             plantTemp->setAnchorPoint(Vec2(0, 1));
             plantTemp->setContentSize(Size(101, 118));
             this->AllPieces[i][j] = plantTemp;
