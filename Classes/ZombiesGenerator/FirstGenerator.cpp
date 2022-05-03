@@ -1,7 +1,6 @@
 #include "FirstGenerator.h"
 #include"../Zombies/AllZombies.h"
 #include"cocos2d.h"
-#include"stdlib.h"
 #include <math.h>
 #include <time.h>
 #include"../GameScene.h"
@@ -22,17 +21,17 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
         chrono::duration<double> diff = end - this->Start;
         auto interval = diff.count();
         srand(time(0));
-        if(interval > 0 && interval <= 17)
+        if(interval > 15 && interval <= 35)
         {
             double remainder = fmod(interval, 8);
             if(remainder < 0.009 || 8- remainder <0.009)
             {
                 int linenum = rand()%5;
                 AddNormalZombie(linenum, scene);
-                scene->ZombiesToGenerate -= 1;
+                scene->ZombiesToGenerate --;
             }
         }
-        else if(interval > 17 && interval <= 50)
+        else if(interval > 35 && interval <= 70)
         {
             double remainder = fmod(interval, 6);
             if(remainder < 0.009 || 6- remainder <0.009)
@@ -47,10 +46,10 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     AddConeHeadZombie(linenum, scene);
                 }
-                scene->ZombiesToGenerate -= 1;
+                scene->ZombiesToGenerate --;
             }
         }
-        else if(interval > 50 && interval <= 70)
+        else if(interval > 70 && interval <= 100)
         {
             double remainder = fmod(interval, 4);
             if(remainder <0.009 || 4- remainder <0.009)
@@ -69,15 +68,42 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     AddBucketZombie(linenum, scene);
                 }
-                scene->ZombiesToGenerate -= 1;
+                scene->ZombiesToGenerate --;
+            }
+            else
+            {
+                remainder = fmod(interval, 10);
+                if(remainder <0.009 || 10- remainder <0.009)
+                {
+                    int num = 4;
+                    int linenum = rand()%5;
+                    int i = rand()%3;
+                    while (scene->ZombiesToGenerate >0 && num>0)
+                    {
+                        linenum = (linenum+1)%5;
+                        if(i == 0)
+                        {
+                            AddNormalZombie(linenum, scene);
+                        }
+                        else if(i == 1)
+                        {
+                            AddConeHeadZombie(linenum, scene);
+                        }
+                        else
+                        {
+                            AddBucketZombie(linenum, scene);
+                        }
+                        num -- ;
+                        scene->ZombiesToGenerate --;
+                    }
+                }
             }
         }
-        else if(interval > 70)
+        else if(interval > 100 && interval <= 150)
         {
-            double remainder = fmod(interval, 1);
-            if(remainder < 0.009 || 1- remainder <0.009)
+            double remainder = fmod(interval, 3);
+            if(remainder < 0.009 || 3- remainder <0.009)
             {
-            
                 int linenum = rand()%5;
                 int i = rand()%2;
                 if(i == 0)
@@ -88,7 +114,74 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     AddBucketZombie(linenum, scene);
                 }
-                scene->ZombiesToGenerate -= 1;
+                scene->ZombiesToGenerate --;
+            }
+            else
+            {
+                remainder = fmod(interval, 10);
+                if(remainder <0.009 || 10- remainder <0.009)
+                {
+                    int num = 6;
+                    int linenum = rand()%5;
+                    int i = rand()%5;
+                    while (scene->ZombiesToGenerate >0 && num>0)
+                    {
+                        linenum = (linenum+1)%5;
+                        if(i == 0 || i == 1)
+                        {
+                            AddConeHeadZombie(linenum, scene);
+                        }
+                        else
+                        {
+                            AddBucketZombie(linenum, scene);
+                        }
+                        num -- ;
+                        scene->ZombiesToGenerate --;
+                    }
+                }
+            }
+        }
+        else if(interval > 150)
+        {
+            double remainder = fmod(interval, 2);
+            if(remainder < 0.009 || 2- remainder <0.009)
+            {
+                int linenum = rand()%5;
+                int i = rand()%2;
+                if(i == 0)
+                {
+                    AddConeHeadZombie(linenum, scene);
+                }
+                else if(i == 1)
+                {
+                    AddBucketZombie(linenum, scene);
+                }
+                scene->ZombiesToGenerate --;
+            }
+            else
+            {
+                remainder = fmod(interval, 8);
+                if(remainder <0.009 || 8- remainder <0.009)
+                {
+                    int num = 10;
+                    int linenum = rand()%5;
+                    int i = rand()%5;
+                    while (scene->ZombiesToGenerate >0 && num>0)
+                    {
+                        linenum = (linenum+1)%5;
+                        i = rand()%5;
+                        if(i == 0 )
+                        {
+                            AddConeHeadZombie(linenum, scene);
+                        }
+                        else
+                        {
+                            AddBucketZombie(linenum, scene);
+                        }
+                        num -- ;
+                        scene->ZombiesToGenerate --;
+                    }
+                }
             }
         }
     }

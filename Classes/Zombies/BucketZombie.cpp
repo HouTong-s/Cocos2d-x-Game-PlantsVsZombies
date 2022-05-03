@@ -1,7 +1,7 @@
 #include "BucketZombie.h"
 using namespace cocos2d;
 using namespace std;
-BucketZombie::BucketZombie(int row,Sprite* node): Zombie(row,node)
+BucketZombie::BucketZombie(int row,Sprite* node): NormalZombie(row,node)
 {
     this->lifeValue = 60;
     node->setContentSize(Size(110, 160));

@@ -3,8 +3,6 @@
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
 #include "Pea.h"
-#include"stdlib.h"
-#include<math.h>
 using namespace cocos2d;
 using namespace std;
 DoubleShooter::DoubleShooter(int row,int col,Sprite* node):Plant(row,col,node)

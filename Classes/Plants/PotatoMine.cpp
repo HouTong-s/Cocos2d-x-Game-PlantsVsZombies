@@ -2,13 +2,11 @@
 #include "../GameScene.h"
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
-#include"stdlib.h"
-#include"math.h"
 using namespace cocos2d;
 using namespace std;
 PotatoMine::PotatoMine(int row,int col,Sprite* node):Plant(row,col,node)
 {
-    this->lifeValue = 10;
+    this->lifeValue = 4;
 }
 
 PotatoMine::~PotatoMine()
@@ -25,7 +23,10 @@ bool PotatoMine::DoSelfTask(GameScene* scene)
             if(abs(10- diff.count()) <0.01)
             {
                 this->isReady = true;
+                //防止准备好的土豆地雷被吃掉，所以加点生命值
+                this->lifeValue = 10;
                 this->plantnode->setTexture("土豆地雷2.png");
+                this->plantnode->setContentSize(Size(103, 121));
             }
         }
         else
@@ -34,6 +35,7 @@ bool PotatoMine::DoSelfTask(GameScene* scene)
             for(auto i=scene->allLines[this->row]->zombies.begin();i!=scene->allLines[this->row]->zombies.end();i++)
             {
                 Rect rect = this->plantnode->getBoundingBox();
+                //以下操作使得土豆雷爆炸时，形成小范围的范围伤害
                 if(rect.containsPoint((*i)->zombienode->getPosition()))
                 {
                     (*i)->lifeValue = 0;

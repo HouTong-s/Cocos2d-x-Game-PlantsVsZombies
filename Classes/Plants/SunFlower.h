@@ -1,5 +1,6 @@
 #ifndef __SUNFLOWER_H__
 #define __SUNFLOWER_H__
+
 #include"cocos2d.h"
 #include"Plant.h"
 class SunFlower : public Plant
@@ -12,6 +13,5 @@ public:
     SunFlower(int , int ,cocos2d::Sprite*);
     ~SunFlower();
 };
-
 
 #endif
