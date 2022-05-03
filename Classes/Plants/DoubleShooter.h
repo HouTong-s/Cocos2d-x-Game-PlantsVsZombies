@@ -1,5 +1,6 @@
 #ifndef __DOUBLESHOOTER_H__
 #define __DOUBLESHOOTER_H__
+
 #include"cocos2d.h"
 #include"Plant.h"
 class DoubleShooter : public Plant
@@ -12,6 +13,5 @@ public:
     DoubleShooter(int , int ,cocos2d::Sprite*);
     ~DoubleShooter();
 };
-
 
 #endif

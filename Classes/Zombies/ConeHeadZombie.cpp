@@ -1,7 +1,7 @@
 #include "ConeHeadZombie.h"
 using namespace cocos2d;
 using namespace std;
-ConeHeadZombie::ConeHeadZombie(int row,Sprite* node): Zombie(row,node)
+ConeHeadZombie::ConeHeadZombie(int row,Sprite* node): NormalZombie(row,node)
 {
     this->lifeValue = 30;
     node->setContentSize(Size(110, 160));

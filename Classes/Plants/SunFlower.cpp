@@ -2,8 +2,8 @@
 #include "../GameScene.h"
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
-#include"stdlib.h"
-#include<math.h>
+//#include <stdlib.h>
+#include <time.h>
 using namespace std;
 using namespace cocos2d;
 SunFlower::SunFlower(int row,int col,Sprite* node):Plant(row,col,node)
@@ -23,7 +23,8 @@ bool SunFlower::DoSelfTask(GameScene* scene)
         {
             this->start = end;
             Vec2 positon = this->plantnode->getPosition();
-            scene->GenerateFlowerSunShape(positon.x+90, positon.y);
+            srand(time(NULL));
+            scene->GenerateFlowerSunShape(positon.x + 30 + rand() % 40, positon.y - 20);
         }
         return true;
     }

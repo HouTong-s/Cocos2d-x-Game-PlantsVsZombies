@@ -61,6 +61,7 @@ list(APPEND GAME_SOURCE
     Classes/DefeatScene.cpp
     Classes/StartScene.cpp
     Classes/VictoryScene.cpp
+    Classes/PauseScene.cpp
     Classes/GameScene.cpp
     Classes/Plants/DoubleShooter.cpp
     Classes/Plants/IcePea.cpp
@@ -84,6 +85,7 @@ list(APPEND GAME_HEADER
     Classes/DefeatScene.h
     Classes/StartScene.h
     Classes/VictoryScene.h
+    Classes/PauseScene.h
     Classes/GameScene.h
     Classes/Board/DataStructures.h
     Classes/Plants/DoubleShooter.h

@@ -1,5 +1,6 @@
 #ifndef __ICEPEA_H__
 #define __ICEPEA_H__
+
 #include"cocos2d.h"
 #include"Plant.h"
 class IcePea : public Plant
@@ -12,6 +13,5 @@ public:
     IcePea(int , int ,cocos2d::Sprite*);
     ~IcePea();
 };
-
 
 #endif

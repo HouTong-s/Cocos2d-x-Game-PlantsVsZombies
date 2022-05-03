@@ -9,7 +9,7 @@ IcePea::IcePea(int row,int col,Sprite* node):Plant(row,col,node)
     this->speed = 240;
     Vec2 rect = node->getPosition();
     node->setContentSize(Size(30, 30));
-    node->runAction(MoveTo::create(float((1430-rect.x)/this->speed), Vec2(1430, rect.y)));
+    node->runAction(MoveTo::create(float((ScreenWidth+10-rect.x)/this->speed), Vec2(ScreenWidth+10, rect.y)));
 }
 
 IcePea::~IcePea()
@@ -31,14 +31,11 @@ bool IcePea::DoSelfTask(GameScene* scene)
                     (*i)->isSlowed = true;
                 }
                 this->lifeValue = 0;
-                this->plantnode->removeFromParent();
                 return false;
             }
         }
-        if(this->plantnode->getPosition().x >= 1430)
+        if(this->plantnode->getPosition().x >= ScreenWidth+10)
         {
-            this->plantnode->stopAllActions();
-            this->plantnode->removeFromParent();
             return false;
         }
         return true;
