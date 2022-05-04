@@ -107,7 +107,6 @@ list(APPEND GAME_HEADER
     Classes/ZombiesGenerator/FirstGenerator.h
     Classes/Plants/AllPlants.h
     Classes/Zombies/AllZombies.h
-    Classes/ZombiesGenerator/AllGenerators.h
      )
 
 if(ANDROID)
