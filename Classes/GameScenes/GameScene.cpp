@@ -1,11 +1,11 @@
 #include "GameScene.h"
-#include"Plants/AllPlants.h"
+#include "../Plants/AllPlants.h"
+#include "../VictoryScene.h"
+#include "../DefeatScene.h"
+#include "../StartScene.h"
+#include "../PauseScene.h"
+#include "../ZombiesGenerator/FirstGenerator.h"
 #include "AudioEngine.h"
-#include "VictoryScene.h"
-#include "DefeatScene.h"
-#include "StartScene.h"
-#include "PauseScene.h"
-#include "ZombiesGenerator/FirstGenerator.h"
 USING_NS_CC;
 using namespace std;
 
