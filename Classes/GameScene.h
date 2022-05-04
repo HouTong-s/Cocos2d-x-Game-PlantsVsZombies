@@ -76,7 +76,7 @@ public:
     cocos2d::Sprite* Shovel;
     
     //所有的草地块
-    std::vector<std::vector<cocos2d::Sprite*>> AllPieces;
+    std::vector<std::vector<cocos2d::Sprite*>> Lawns;
     
     //所有的卡片
     std::vector<cocos2d::Sprite*> AllCards;
@@ -101,6 +101,9 @@ public:
     virtual bool init() override;
     void update(float dt) override;
     CREATE_FUNC(GameScene);
+
+    //析构函数，释放所有的plant、zombie、prop对象
+    ~GameScene();
     
     //结束或暂停时时关闭音乐
     void onExit() override;

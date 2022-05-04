@@ -20,7 +20,6 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
     {
         chrono::duration<double> diff = end - this->Start;
         auto interval = diff.count();
-        srand(time(0));
         if(interval > 15 && interval <= 35)
         {
             double remainder = fmod(interval, 8);
@@ -31,7 +30,7 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 scene->ZombiesToGenerate --;
             }
         }
-        else if(interval > 35 && interval <= 70)
+        else if(interval > 35 && interval <= 80)
         {
             double remainder = fmod(interval, 6);
             if(remainder < 0.009 || 6- remainder <0.009)
@@ -49,7 +48,7 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 scene->ZombiesToGenerate --;
             }
         }
-        else if(interval > 70 && interval <= 100)
+        else if(interval > 80 && interval <= 140)
         {
             double remainder = fmod(interval, 4);
             if(remainder <0.009 || 4- remainder <0.009)
@@ -77,10 +76,11 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     int num = 4;
                     int linenum = rand()%5;
-                    int i = rand()%3;
+                    int i ;
                     while (scene->ZombiesToGenerate >0 && num>0)
                     {
                         linenum = (linenum+1)%5;
+                        i = rand()%3;
                         if(i == 0)
                         {
                             AddNormalZombie(linenum, scene);
@@ -99,7 +99,7 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 }
             }
         }
-        else if(interval > 100 && interval <= 150)
+        else if(interval > 140 && interval <= 170)
         {
             double remainder = fmod(interval, 3);
             if(remainder < 0.009 || 3- remainder <0.009)
@@ -123,10 +123,11 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     int num = 6;
                     int linenum = rand()%5;
-                    int i = rand()%5;
+                    int i;
                     while (scene->ZombiesToGenerate >0 && num>0)
                     {
                         linenum = (linenum+1)%5;
+                        i = rand()%5;
                         if(i == 0 || i == 1)
                         {
                             AddConeHeadZombie(linenum, scene);
@@ -141,7 +142,7 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 }
             }
         }
-        else if(interval > 150)
+        else if(interval > 170)
         {
             double remainder = fmod(interval, 2);
             if(remainder < 0.009 || 2- remainder <0.009)
@@ -165,7 +166,7 @@ void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point e
                 {
                     int num = 10;
                     int linenum = rand()%5;
-                    int i = rand()%5;
+                    int i ;
                     while (scene->ZombiesToGenerate >0 && num>0)
                     {
                         linenum = (linenum+1)%5;

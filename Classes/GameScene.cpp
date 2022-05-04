@@ -35,7 +35,7 @@ void GameScene::HandlePos(float x,float y)
     for(int i=0;i<this->Row;i++)
         for(int j=0;j<this->Column;j++)
         {
-            if(this->AllPieces[i][j]->getBoundingBox().containsPoint(Vec2(x, y)))
+            if(this->Lawns[i][j]->getBoundingBox().containsPoint(Vec2(x, y)))
             {
                 //this->whichCard = -1;
                 return;
@@ -61,7 +61,7 @@ MyRect GameScene::PosToPlant(float x,float y)
     for(int i=0;i<this->Row;i++)
         for(int j=0;j<this->Column;j++)
         {
-            if(this->AllPieces[i][j]->getBoundingBox().containsPoint(Vec2(x, y)))
+            if(this->Lawns[i][j]->getBoundingBox().containsPoint(Vec2(x, y)))
             {
                 result.row = i;
                 result.column = j;
@@ -96,42 +96,42 @@ void GameScene::PlantPlants(int row,int col)
                                                   }),
                                                   NULL));
         
-        this->AllPieces[row][col]->setTexture(Plant::PlantsImgs[this->whichCard]);
+        this->Lawns[row][col]->setTexture(Plant::PlantsImgs[this->whichCard]);
         Plant* plant;
         switch (this->whichCard)
         {
             case 0:
-                plant = new SunFlower(row, col, this->AllPieces[row][col]);
+                plant = new SunFlower(row, col, this->Lawns[row][col]);
                 break;
             case 1:
-                plant = new PeaShooter(row, col, this->AllPieces[row][col]);
+                plant = new PeaShooter(row, col, this->Lawns[row][col]);
                 break;
             case 2:
-                plant = new IceShooter(row, col, this->AllPieces[row][col]);
+                plant = new IceShooter(row, col, this->Lawns[row][col]);
                 break;
             case 3:
-                plant = new Nut(row, col, this->AllPieces[row][col]);
+                plant = new Nut(row, col, this->Lawns[row][col]);
                 break;
             case 4:
-                plant = new PotatoMine(row, col, this->AllPieces[row][col]);
+                plant = new PotatoMine(row, col, this->Lawns[row][col]);
                 break;
             case 5:
-                plant = new DoubleShooter(row, col, this->AllPieces[row][col]);
+                plant = new DoubleShooter(row, col, this->Lawns[row][col]);
                 break;
             default:
                 break;
         }
         if(plant!= nullptr)
         {
-            this->AllPieces[row][col]->setContentSize(Size(Lawn_Width, Lawn_Height));
+            this->Lawns[row][col]->setContentSize(Size(Lawn_Width, Lawn_Height));
             this->TotalOfSun -= Plant::CardCost[this->whichCard];
             this->allLines[row]->plants.push_back(plant);
         }
     }
     else if(this->whichCard == -10)
     {
-        this->AllPieces[row][col]->setTexture("草地块.png");
-        this->AllPieces[row][col]->setContentSize(Size(Lawn_Width, Lawn_Height));
+        this->Lawns[row][col]->setTexture("草地块.png");
+        this->Lawns[row][col]->setContentSize(Size(Lawn_Width, Lawn_Height));
         for(int i=0;i<this->allLines[row]->plants.size();i++)
         {
             if(this->allLines[row]->plants[i]->column == col)
@@ -196,7 +196,6 @@ void GameScene::GenerateFlowerSunShape(float x,float y)
 void GameScene::GenerateAutomaticSunShape()
 {
     Sprite* sunNode = Sprite::create("阳光.png");
-    srand(time(0));
     int x,y;
     x = rand()%Lawn_Left + Lawn_Left+30;
     y = rand()%(Lawn_Top/2) - Lawn_Top;
@@ -349,8 +348,10 @@ bool GameScene::init()
     {
         this->allLines.push_back(new Line());
     }
-    this->AllPieces.resize(this->Row,vector<Sprite*>(this->Column,nullptr));
+    this->Lawns.resize(this->Row,vector<Sprite*>(this->Column,nullptr));
     this->start = chrono::system_clock::now();
+    //重置随机数
+    srand(time(0));
     
     //注册鼠标事件（PC）或者触摸事件（手机）
 #ifdef CC_PLATFORM_PC
@@ -438,7 +439,7 @@ bool GameScene::init()
             plantTemp->setPosition(Lawn_Left+Lawn_Width*j, Lawn_Top-Lawn_Height*i);
             plantTemp->setAnchorPoint(Vec2(0, 1));
             plantTemp->setContentSize(Size(Lawn_Width, Lawn_Height));
-            this->AllPieces[i][j] = plantTemp;
+            this->Lawns[i][j] = plantTemp;
             this->addChild(plantTemp);
         }
     //添加阳光值
@@ -538,5 +539,28 @@ void GameScene::onEnter()
     else
     {
         this->initing = false;
+    }
+}
+
+GameScene::~GameScene()
+{
+    for(auto i = this->allProps.begin();i!= this->allProps.end();i++)
+    {
+        CCLOG("deleted prop");
+        delete *i;
+    }
+    for(auto i=0;i<this->Row;i++)
+    {
+        for(auto j = this->allLines[i]->plants.begin(); j != this->allLines[i]->plants.end(); j++)
+        {
+            CCLOG("deleted plant");
+            delete *j;
+        }
+        for(auto k = this->allLines[i]->zombies.begin(); k != this->allLines[i]->zombies.end(); k++)
+        {
+            CCLOG("deleted zombie");
+            delete *k;
+        }
+        delete this->allLines[i];
     }
 }
