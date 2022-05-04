@@ -3,7 +3,7 @@
 #include"cocos2d.h"
 #include <math.h>
 #include <time.h>
-#include"../GameScenes/GameScene.h"
+#include"../GameScene.h"
 using namespace cocos2d;
 using namespace std;
 FirstGenerator::FirstGenerator()
@@ -14,9 +14,8 @@ FirstGenerator::~FirstGenerator()
 {
 }
 
-void FirstGenerator::execute(GameScene *scene)
+void FirstGenerator::execute(GameScene *scene,chrono::system_clock::time_point end)
 {
-    auto end = chrono::system_clock::now();
     if(scene->ZombiesToGenerate > 0)
     {
         chrono::duration<double> diff = end - this->Start;

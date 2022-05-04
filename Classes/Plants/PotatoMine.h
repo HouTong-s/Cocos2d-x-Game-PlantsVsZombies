@@ -7,9 +7,9 @@ class PotatoMine : public Plant
 {
 protected:
     bool isReady = false;
-    virtual bool DoSelfTask();
+    virtual bool DoSelfTask(GameScene* scene);
 public:
-    PotatoMine(int , int ,cocos2d::Sprite*,GameScene*);
+    PotatoMine(int , int ,cocos2d::Sprite*);
     ~PotatoMine();
 };
 

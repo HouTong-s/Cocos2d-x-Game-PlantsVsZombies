@@ -5,10 +5,12 @@
 #include"Plant.h"
 class SunFlower : public Plant
 {
+private:
+    int speed = 20;
 protected:
-    virtual bool DoSelfTask();
+    virtual bool DoSelfTask(GameScene* scene);
 public:
-    SunFlower(int , int ,cocos2d::Sprite*,GameScene*);
+    SunFlower(int , int ,cocos2d::Sprite*);
     ~SunFlower();
 };
 

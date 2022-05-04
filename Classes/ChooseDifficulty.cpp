@@ -1,5 +1,5 @@
 #include "ChooseDifficulty.h"
-#include "GameScenes/GameScene.h"
+#include "GameScene.h"
 USING_NS_CC;
 
 Scene* ChooseDifficulty::createScene()

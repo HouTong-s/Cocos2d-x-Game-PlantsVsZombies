@@ -1,16 +1,26 @@
 #include "PotatoMine.h"
-#include "../GameScenes/GameScene.h"
+#include "../GameScene.h"
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
 using namespace cocos2d;
 using namespace std;
-PotatoMine::PotatoMine(int row,int col,Sprite* node,GameScene* scene):Plant(row,col,node,scene)
+PotatoMine::PotatoMine(int row,int col,Sprite* node):Plant(row,col,node)
 {
     this->lifeValue = 4;
-    node->runAction(Repeat::create(Sequence::create(
-        DelayTime::create(10),
-        CallFunc::create([&](){
-            if(this->lifeValue > 0)
+}
+
+PotatoMine::~PotatoMine()
+{
+}
+bool PotatoMine::DoSelfTask(GameScene* scene)
+{
+    if(this->plantnode != nullptr)
+    {
+        if(this->isReady == false)
+        {
+            auto end = chrono::system_clock::now();
+            chrono::duration<double> diff = end - this->start;
+            if(abs(10- diff.count()) <0.01)
             {
                 this->isReady = true;
                 //防止准备好的土豆地雷被吃掉，所以加点生命值
@@ -18,19 +28,8 @@ PotatoMine::PotatoMine(int row,int col,Sprite* node,GameScene* scene):Plant(row,
                 this->plantnode->setTexture("土豆地雷2.png");
                 this->plantnode->setContentSize(Size(103, 121));
             }
-        }),
-        NULL
-    ),1));
-}
-
-PotatoMine::~PotatoMine()
-{
-}
-bool PotatoMine::DoSelfTask()
-{
-    if(this->plantnode != nullptr)
-    {
-        if(this->isReady)
+        }
+        else
         {
             bool isBoom = false;
             for(auto i=scene->allLines[this->row]->zombies.begin();i!=scene->allLines[this->row]->zombies.end();i++)
@@ -55,7 +54,7 @@ bool PotatoMine::DoSelfTask()
             }
             if(isBoom)
             {
-                return false;
+                this->lifeValue = 0;
             }
         }
         return true;

@@ -12,7 +12,7 @@ protected:
 public:
     AbstarctGenerator();
     std::chrono::system_clock::time_point Start;
-    virtual void execute(GameScene*)=0;
+    virtual void execute(GameScene*,std::chrono::system_clock::time_point)=0;
     virtual ~AbstarctGenerator();
 };
 

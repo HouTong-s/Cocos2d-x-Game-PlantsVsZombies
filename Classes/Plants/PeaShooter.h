@@ -6,12 +6,9 @@
 class PeaShooter : public Plant
 {
 protected:
-    virtual bool DoSelfTask();
-
-    //是否正在射击
-    bool isShooting = false;
+    virtual bool DoSelfTask(GameScene* scene);
 public:
-    PeaShooter(int , int ,cocos2d::Sprite*,GameScene*);
+    PeaShooter(int , int ,cocos2d::Sprite*);
     ~PeaShooter();
 };
 

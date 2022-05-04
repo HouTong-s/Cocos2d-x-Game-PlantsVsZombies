@@ -6,9 +6,9 @@
 class Nut : public Plant
 {
 protected:
-    virtual bool DoSelfTask();
+    virtual bool DoSelfTask(GameScene* scene);
 public:
-    Nut(int , int ,cocos2d::Sprite*,GameScene*);
+    Nut(int , int ,cocos2d::Sprite*);
     ~Nut();
 };
 
