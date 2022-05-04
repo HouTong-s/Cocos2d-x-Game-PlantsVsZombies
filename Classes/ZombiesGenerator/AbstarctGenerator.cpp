@@ -1,7 +1,7 @@
 #include "AbstarctGenerator.h"
 #include"../Zombies/AllZombies.h"
 #include"cocos2d.h"
-#include"../GameScene.h"
+#include"../GameScenes/GameScene.h"
 using namespace cocos2d;
 AbstarctGenerator::AbstarctGenerator()
 {

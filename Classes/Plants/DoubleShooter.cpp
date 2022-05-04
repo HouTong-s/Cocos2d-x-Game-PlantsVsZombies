@@ -1,18 +1,18 @@
 #include "DoubleShooter.h"
-#include "../GameScene.h"
+#include "../GameScenes/GameScene.h"
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
-#include "Pea.h"
+#include "../Props/Pea.h"
 using namespace cocos2d;
 using namespace std;
-DoubleShooter::DoubleShooter(int row,int col,Sprite* node):Plant(row,col,node)
+DoubleShooter::DoubleShooter(int row,int col,Sprite* node,GameScene* scene):Plant(row,col,node,scene)
 {
 }
 
 DoubleShooter::~DoubleShooter()
 {
 }
-bool DoubleShooter::DoSelfTask(GameScene* scene)
+bool DoubleShooter::DoSelfTask()
 {
     if(this->plantnode != nullptr)
     {
@@ -22,31 +22,41 @@ bool DoubleShooter::DoSelfTask(GameScene* scene)
             Vec2 positon = this->plantnode->getPosition();
             peaNode->setPosition(positon.x+100,positon.y-50);
             scene->addChild(peaNode);
-            Pea* pea = new Pea(this->row,this->column,peaNode);
+            Pea* pea = new Pea(this->row,peaNode,this->scene);
             scene->allProps.push_back(pea);
             this->isSecend = false;
         }
-        
-        auto end = chrono::system_clock::now();
-        chrono::duration<double> diff = end - this->start;
-        if(diff.count() > 0.99)
+        bool hasEnemy = false;
+        for(auto i=scene->allLines[this->row]->zombies.begin();i!=scene->allLines[this->row]->zombies.end();i++)
         {
-            this->start = end;
-            for(auto i=scene->allLines[this->row]->zombies.begin();i!=scene->allLines[this->row]->zombies.end();i++)
+            if((*i)->zombienode->getPosition().x > this->plantnode->getPosition().x)
             {
-                if((*i)->zombienode->getPosition().x > this->plantnode->getPosition().x)
-                {
-                    //CCLOG("%d线发射 总共%d %d %d僵尸",this->row,scene->allLines[this->row]->zombies.size(),scene->allLines[0]->zombies.size(),scene->allLines[1]->zombies.size());
-                    Sprite* peaNode = Sprite::create("豌豆.png");
-                    Vec2 positon = this->plantnode->getPosition();
-                    peaNode->setPosition(positon.x+100,positon.y-35);
-                    scene->addChild(peaNode);
-                    Pea* pea = new Pea(this->row,this->column,peaNode);
-                    scene->allProps.push_back(pea);
-                    this->isSecend = true;
-                    break;
-                }
+                hasEnemy = true;
+                break;
             }
+        }
+        if(hasEnemy && !this->isShooting)
+        {
+            this->plantnode->runAction(
+                RepeatForever::create(Sequence::create(
+                    DelayTime::create(1),
+                    CallFunc::create([&](){
+                        Sprite* peaNode = Sprite::create("豌豆.png");
+                        Vec2 positon = this->plantnode->getPosition();
+                        peaNode->setPosition(positon.x+100,positon.y-35);
+                        this->scene->addChild(peaNode);
+                        Pea* pea = new Pea(this->row,peaNode,this->scene);
+                        this->scene->allProps.push_back(pea);
+                        this->isSecend = true;
+                    }),
+                    NULL
+                )));
+            this->isShooting = true;
+        }
+        else if(!hasEnemy && this->isShooting)
+        {
+            this->plantnode->stopAllActions();
+            this->isShooting = false;
         }
         return true;
     }

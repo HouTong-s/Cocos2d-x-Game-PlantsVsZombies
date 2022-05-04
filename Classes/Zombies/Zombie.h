@@ -2,13 +2,15 @@
 #define __ZOMBIE_H__
 
 #include"cocos2d.h"
-#include <chrono>
 #include"../Board/DataStructures.h"
 #include<string>
 #include<vector>
 class Zombie
 {
 protected:
+    static const int moveTag;
+    static const int eatTag;
+    static const int slowTag;
     int row;
     float speed=20;
     bool IsAlive();
@@ -16,15 +18,21 @@ protected:
     virtual bool DoSelfTask(std::vector<Line*>)=0;
 public:
     int lifeValue;
-    std::chrono::system_clock::time_point EatStart;
-    std::chrono::system_clock::time_point SlowStart;
     bool isSlowed = false;
     bool slowWalking = false;
-    bool hasAction = true;
+    bool isWalking = true;
+    bool isEating = false;
+    bool slowEating = false;
+    bool isSlowEating = false;
     int slowtime = 0;
     cocos2d::Sprite* zombienode;
     Zombie(int,cocos2d::Sprite*);
     virtual ~Zombie();
+
+    //被施加减速
+    void putSlow(int);
+
+    //移动
     virtual bool move(std::vector<Line*>);
 };
 

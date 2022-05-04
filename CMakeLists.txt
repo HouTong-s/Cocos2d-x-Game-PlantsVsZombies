@@ -62,12 +62,13 @@ list(APPEND GAME_SOURCE
     Classes/StartScene.cpp
     Classes/VictoryScene.cpp
     Classes/PauseScene.cpp
-    Classes/GameScene.cpp
+    Classes/GameScenes/GameScene.cpp
+    Classes/Props/Prop.cpp
+    Classes/Props/Pea.cpp
+    Classes/Props/IcePea.cpp
     Classes/Plants/DoubleShooter.cpp
-    Classes/Plants/IcePea.cpp
     Classes/Plants/IceShooter.cpp
     Classes/Plants/Nut.cpp
-    Classes/Plants/Pea.cpp
     Classes/Plants/PeaShooter.cpp
     Classes/Plants/Plant.cpp
     Classes/Plants/PotatoMine.cpp
@@ -86,13 +87,14 @@ list(APPEND GAME_HEADER
     Classes/StartScene.h
     Classes/VictoryScene.h
     Classes/PauseScene.h
-    Classes/GameScene.h
     Classes/Board/DataStructures.h
+    Classes/GameScenes/GameScene.h
+    Classes/Props/Prop.h
+    Classes/Props/Pea.h
+    Classes/Props/IcePea.h
     Classes/Plants/DoubleShooter.h
-    Classes/Plants/IcePea.h
     Classes/Plants/IceShooter.h
     Classes/Plants/Nut.h
-    Classes/Plants/Pea.h
     Classes/Plants/PeaShooter.h
     Classes/Plants/Plant.h
     Classes/Plants/PotatoMine.h

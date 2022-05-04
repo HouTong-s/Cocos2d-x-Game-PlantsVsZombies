@@ -1,9 +1,9 @@
 #include "Nut.h"
-#include "../GameScene.h"
+#include "../GameScenes/GameScene.h"
 #include "../Board/DataStructures.h"
 #include"../Zombies/Zombie.h"
 using namespace cocos2d;
-Nut::Nut(int row,int col,Sprite* node):Plant(row,col,node)
+Nut::Nut(int row,int col,Sprite* node,GameScene* scene):Plant(row,col,node,scene)
 {
     this->lifeValue = 50;
 }
@@ -11,9 +11,13 @@ Nut::Nut(int row,int col,Sprite* node):Plant(row,col,node)
 Nut::~Nut()
 {
 }
-bool Nut::DoSelfTask(GameScene* scene)
+bool Nut::DoSelfTask()
 {
-    return true;
+    if(this->plantnode != nullptr)
+    {
+        return true;
+    }
+    return false;
 }
 
 
