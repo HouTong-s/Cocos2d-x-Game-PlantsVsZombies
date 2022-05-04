@@ -8,9 +8,12 @@ class DoubleShooter : public Plant
 private:
     bool isSecend = false;
 protected:
-    virtual bool DoSelfTask(GameScene* scene);
+    virtual bool DoSelfTask();
+
+    //是否正在射击
+    bool isShooting = false;
 public:
-    DoubleShooter(int , int ,cocos2d::Sprite*);
+    DoubleShooter(int , int ,cocos2d::Sprite*,GameScene*);
     ~DoubleShooter();
 };
 

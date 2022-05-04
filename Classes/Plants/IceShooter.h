@@ -6,9 +6,12 @@
 class IceShooter : public Plant
 {
 protected:
-    virtual bool DoSelfTask(GameScene* scene);
+    virtual bool DoSelfTask();
+
+    //是否正在射击
+    bool isShooting = false;
 public:
-    IceShooter(int , int ,cocos2d::Sprite*);
+    IceShooter(int , int ,cocos2d::Sprite*,GameScene*);
     ~IceShooter();
 };
 

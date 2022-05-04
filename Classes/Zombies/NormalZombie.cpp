@@ -6,7 +6,9 @@ NormalZombie::NormalZombie(int row,Sprite* node): Zombie(row,node)
 {
     this->lifeValue = 10;
     node->setContentSize(Size(96, 140));
-    node->runAction(MoveTo::create(float(ScreenWidth - 300) / this->speed, Vec2(300, 640-Lawn_Height*row)));
+    Action* act = MoveTo::create(float(ScreenWidth - 300) / this->speed, Vec2(300, this->zombienode->getPosition().y));
+    node->runAction(act);
+    act->setTag(Zombie::moveTag);
 }
 
 NormalZombie::~NormalZombie()
@@ -23,62 +25,64 @@ bool NormalZombie::DoSelfTask(vector<Line *> allLines)
     if(this->isSlowed)
     {
         CurentSpeed /=2;
-        auto end = chrono::system_clock::now();
-        chrono::duration<double> diff = end - this->SlowStart;
-        if(diff.count() >= this->slowtime)
-        {
-            this->slowtime = 0;
-            CurentSpeed = this->speed;
-            this->isSlowed = false;
-        }
     }
+    //isStopped为true时，意味着僵尸站着不动，以及开始吃植物
     bool isStopped = false;
     for(auto i=allLines[this->row]->plants.begin();i!=allLines[this->row]->plants.end();i++)
     {
         if(*i != nullptr &&
            (*i)->plantnode->getBoundingBox().containsPoint(this->zombienode->getPosition()))
         {
-            this->zombienode->stopAllActions();
-            auto end = chrono::system_clock::now();
-            chrono::duration<double> diff = end - this->EatStart;
-            //被减速了也会减少攻击速度
-            if(diff.count() > (this->isSlowed ? 1.49 : 0.99))
-            {
-                this->EatStart = end;
-                (*i)->lifeValue -= 1;
-            }
             isStopped = true;
+            if(this->zombienode->getActionByTag(Zombie::eatTag) == nullptr)
+            {
+                (*i)->lifeValue --;
+                float temp = 1;
+                if(this->isSlowed)
+                {
+                    temp = 1.5;
+                }
+                auto act = DelayTime::create(temp);
+                this->zombienode->runAction(act);
+                act->setTag(Zombie::eatTag);
+            }
             break;
         }
     }
     if(isStopped)
     {
-        if(this->hasAction)
+        if(this->isWalking)
         {
-            this->zombienode->stopAllActions();
-            this->hasAction = false;
+            this->zombienode->stopActionByTag(Zombie::moveTag);
+            this->isWalking = false;
         }
     }
     else
     {
         Vec2 rect = this->zombienode->getPosition();
-        if(!this->hasAction)
+        if(!this->isWalking)
         {
-            this->zombienode->runAction(MoveTo::create(float(rect.x - 100) / CurentSpeed, Vec2(100, rect.y)));
-            this->hasAction = true;
+            Action* act = MoveTo::create(float(rect.x - 300) / CurentSpeed, Vec2(300, rect.y));
+            this->zombienode->runAction(act);
+            act->setTag(Zombie::moveTag);
+            this->isWalking = true;
         }
         else
         {
             if(this->isSlowed && !this->slowWalking)
             {
-                this->zombienode->stopAllActions();
-                this->zombienode->runAction(MoveTo::create(float(rect.x - 100) / CurentSpeed, Vec2(100, rect.y)));
+                this->zombienode->stopActionByTag(Zombie::moveTag);
+                Action* act = MoveTo::create(float(rect.x - 300) / CurentSpeed, Vec2(300, rect.y));
+                this->zombienode->runAction(act);
+                act->setTag(Zombie::moveTag);
                 this->slowWalking = true;
             }
             else if( !this->isSlowed && this->slowWalking)
             {
-                this->zombienode->stopAllActions();
-                this->zombienode->runAction(MoveTo::create(float(rect.x - 100) / CurentSpeed, Vec2(100, rect.y)));
+                this->zombienode->stopActionByTag(Zombie::moveTag);
+                Action* act = MoveTo::create(float(rect.x - 300) / CurentSpeed, Vec2(300, rect.y));
+                this->zombienode->runAction(act);
+                act->setTag(Zombie::moveTag);
                 this->slowWalking = false;
             }
         }
