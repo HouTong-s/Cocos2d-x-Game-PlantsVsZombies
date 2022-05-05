@@ -31,7 +31,7 @@ bool ChooseDifficulty::init()
     
     auto easyItem = MenuItemLabel::create(
                                            Label::createWithSystemFont("简单", "Arial", 50),
-                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,40));
+                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,"easy",40));
     x = origin.x + visibleSize.width/2 -150;
     y = origin.y + visibleSize.height/2 ;
     easyItem->setPosition(Vec2(x,y));
@@ -39,7 +39,7 @@ bool ChooseDifficulty::init()
     
     auto normalItem = MenuItemLabel::create(
                                            Label::createWithSystemFont("一般", "Arial", 50),
-                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,60));
+                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,"medium",60));
     x = origin.x + visibleSize.width/2 ;
     y = origin.y + visibleSize.height/2 ;
     normalItem->setPosition(Vec2(x,y));
@@ -47,7 +47,7 @@ bool ChooseDifficulty::init()
     
     auto hardItem = MenuItemLabel::create(
                                            Label::createWithSystemFont("困难", "Arial", 50),
-                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,100));
+                                           CC_CALLBACK_1(ChooseDifficulty::ChooseDifficultyCallback, this,"hard",100));
     x = origin.x + visibleSize.width/2 + 150;
     y = origin.y + visibleSize.height/2 ;
     hardItem->setPosition(Vec2(x,y));
@@ -59,7 +59,16 @@ bool ChooseDifficulty::init()
     return true;
 }
 
-void ChooseDifficulty::ChooseDifficultyCallback(Ref* pSender,int num)
+void ChooseDifficulty::ChooseDifficultyCallback(Ref* pSender,std::string str,int num)
 {
-    Director::getInstance()->replaceScene(GameScene::createScene(num));
+    try
+    {
+        auto scene = GameScene::createScene(str,num);
+        Director::getInstance()->replaceScene(scene);
+    }
+    catch (const char *)
+    {
+        
+    }
+    
 }

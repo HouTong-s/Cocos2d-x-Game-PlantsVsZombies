@@ -6,8 +6,7 @@ using namespace cocos2d;
 using namespace std;
 PotatoMine::PotatoMine(int row,int col,Sprite* node,GameScene* scene):Plant(row,col,node,scene)
 {
-    this->lifeValue = 4;
-    node->runAction(Repeat::create(Sequence::create(
+    node->runAction(Sequence::create(
         DelayTime::create(10),
         CallFunc::create([&](){
             if(this->lifeValue > 0)
@@ -20,7 +19,7 @@ PotatoMine::PotatoMine(int row,int col,Sprite* node,GameScene* scene):Plant(row,
             }
         }),
         NULL
-    ),1));
+    ));
 }
 
 PotatoMine::~PotatoMine()

@@ -2,6 +2,7 @@
 #define __ChooseDifficulty_SCENE_H__
 
 #include "cocos2d.h"
+#include <string>
 
 class ChooseDifficulty : public cocos2d::Scene
 {
@@ -11,7 +12,7 @@ public:
 
     virtual bool init();
     
-    void ChooseDifficultyCallback(cocos2d::Ref* pSender,int);
+    void ChooseDifficultyCallback(cocos2d::Ref* pSender,std::string,int);
     
     CREATE_FUNC(ChooseDifficulty);
 };

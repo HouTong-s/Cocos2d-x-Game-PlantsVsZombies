@@ -78,7 +78,9 @@ list(APPEND GAME_SOURCE
     Classes/Zombies/NormalZombie.cpp
     Classes/Zombies/Zombie.cpp
     Classes/ZombiesGenerator/AbstarctGenerator.cpp
-    Classes/ZombiesGenerator/FirstGenerator.cpp
+    Classes/ZombiesGenerator/EasyGenerator.cpp
+    Classes/ZombiesGenerator/MediumGenerator.cpp
+    Classes/ZombiesGenerator/HardGenerator.cpp
      )
 list(APPEND GAME_HEADER
     Classes/AppDelegate.h
@@ -104,7 +106,10 @@ list(APPEND GAME_HEADER
     Classes/Zombies/NormalZombie.h
     Classes/Zombies/Zombie.h
     Classes/ZombiesGenerator/AbstarctGenerator.h
-    Classes/ZombiesGenerator/FirstGenerator.h
+    Classes/ZombiesGenerator/EasyGenerator.h
+    Classes/ZombiesGenerator/MediumGenerator.h
+    Classes/ZombiesGenerator/HardGenerator.h
+    Classes/ZombiesGenerator/AllGenerators.h
     Classes/Plants/AllPlants.h
     Classes/Zombies/AllZombies.h
      )

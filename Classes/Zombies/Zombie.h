@@ -12,12 +12,12 @@ protected:
     static const int eatTag;
     static const int slowTag;
     int row;
-    float speed=20;
+    float speed=22;
     bool IsAlive();
     virtual void ExamineToChangeTexture()=0;
     virtual bool DoSelfTask(std::vector<Line*>)=0;
 public:
-    int lifeValue;
+    int lifeValue = 10;
     bool isSlowed = false;
     bool slowWalking = false;
     bool isWalking = true;

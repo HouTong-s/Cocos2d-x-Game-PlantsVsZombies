@@ -9,7 +9,6 @@ Zombie::Zombie(int row,Sprite* node)
     this->row = row;
     this->zombienode = node;
     node->setPosition(ScreenWidth,640-Lawn_Height*row);
-    this->lifeValue = 10;
 }
 
 Zombie::~Zombie()

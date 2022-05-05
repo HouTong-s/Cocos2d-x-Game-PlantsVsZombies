@@ -4,17 +4,36 @@
 #include "../DefeatScene.h"
 #include "../StartScene.h"
 #include "../PauseScene.h"
-#include "../ZombiesGenerator/FirstGenerator.h"
+#include "../ZombiesGenerator/AllGenerators.h"
 #include "AudioEngine.h"
 USING_NS_CC;
 using namespace std;
 
 //getBoundingBox获取节点在父坐标系的矩形框坐标
 
-Scene* GameScene::createScene(int num)
+Scene* GameScene::createScene(string str,int num)
 {
+    AbstarctGenerator* generator;
+    if(str == "easy")
+    {
+        generator = new EasyGenerator();
+    }
+    else if(str == "medium")
+    {
+        generator = new MediumGenerator();
+    }
+    else if(str == "hard")
+    {
+        generator = new HardGenerator();
+    }
+    else
+    {
+        CCLOG("Difficulty error!");
+        throw "Difficulty error!";
+    }
     auto scene = GameScene::create();
     scene->TotalZombies = scene->remainingZombies = scene->ZombiesToGenerate = num;
+    scene->zombiesgenerator = generator;
     return scene;
 }
 
@@ -321,7 +340,6 @@ bool GameScene::init()
         return false;
     }
     //初始化数据
-    this->zombiesgenerator = new FirstGenerator();
     for(int i=0;i<this->Row;i++)
     {
         this->allLines.push_back(new Line());

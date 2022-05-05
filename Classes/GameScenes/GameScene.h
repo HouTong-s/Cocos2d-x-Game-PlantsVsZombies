@@ -8,6 +8,7 @@
 #include "../ZombiesGenerator/AbstarctGenerator.h"
 #include <vector>
 #include "../Board/DataStructures.h"
+#include <string>
 #include <chrono>
 class GameScene : public cocos2d::Scene
 {
@@ -44,6 +45,8 @@ private:
     
     //判断失败条件
     void JudgeIsFailed();
+    
+    CREATE_FUNC(GameScene);
     
 public:
     //僵尸生成器
@@ -99,11 +102,11 @@ public:
     //所有阳光
     cocos2d::Vector<cocos2d::Sprite*> SunShapes;
     
-    static cocos2d::Scene* createScene(int num = 50);
+    static cocos2d::Scene* createScene(std::string str,int num = 50);
     void GenerateFlowerSunShape(float,float);
     virtual bool init() override;
     void update(float dt) override;
-    CREATE_FUNC(GameScene);
+    
 
     //析构函数，释放所有的plant、zombie、prop对象
     ~GameScene();
