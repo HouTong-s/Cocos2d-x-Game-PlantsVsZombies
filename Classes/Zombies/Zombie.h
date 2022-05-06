@@ -1,4 +1,4 @@
-﻿#ifndef __ZOMBIE_H__
+#ifndef __ZOMBIE_H__
 #define __ZOMBIE_H__
 
 #include"cocos2d.h"
@@ -13,8 +13,14 @@ protected:
     static const int slowTag;
     int row;
     float speed=22;
+    
+    //检查生命的函数
     bool IsAlive();
+    
+    //检查当前的生命值，是否该更换图片
     virtual void ExamineToChangeTexture()=0;
+    
+    //由子类来扩写的函数，执行自身特有的行动
     virtual bool DoSelfTask(std::vector<Line*>)=0;
 public:
     int lifeValue = 10;
@@ -32,7 +38,7 @@ public:
     //被施加减速
     void putSlow(int);
 
-    //移动
+    //每一帧都调用，返回false说明僵尸对象将要被销毁
     virtual bool move(std::vector<Line*>);
 };
 

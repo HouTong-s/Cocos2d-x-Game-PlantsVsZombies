@@ -1,4 +1,4 @@
-﻿#include "GameScene.h"
+#include "GameScene.h"
 #include "../Plants/AllPlants.h"
 #include "../VictoryScene.h"
 #include "../DefeatScene.h"
@@ -57,7 +57,6 @@ void GameScene::HandlePos(float x,float y)
         {
             if(this->Lawns[i][j]->getBoundingBox().containsPoint(Vec2(x, y)))
             {
-                //this->whichCard = -1;
                 return;
             }
         }
@@ -110,11 +109,13 @@ void GameScene::PlantPlants(int row,int col)
         //种植完之后卡片进入冷却,冷却完毕后更新冷却状态
         this->isCardsReady[whichCard] = false;
         int temp = this->whichCard;
-        this->CoolBars[whichCard]->runAction(Sequence::create(ProgressFromTo::create(Plant::CoolTimes                                                   [whichCard], 100, 0),
-                                                      CallFunc::create([&,temp](){
-                                                        this->isCardsReady[temp] = true;
-                                                  }),
-                                                  NULL));
+        this->CoolBars[whichCard]->runAction(Sequence::create(
+            ProgressFromTo::create(Plant::CoolTimes[whichCard], 100, 0),
+            CallFunc::create([&,temp](){
+                this->isCardsReady[temp] = true;
+            }),
+            NULL
+        ));
         
         this->Lawns[row][col]->setTexture(Plant::PlantsImgs[this->whichCard]);
         Plant* plant;
@@ -152,13 +153,14 @@ void GameScene::PlantPlants(int row,int col)
     {
         this->Lawns[row][col]->setTexture("草地块.png");
         this->Lawns[row][col]->setContentSize(Size(Lawn_Width, Lawn_Height));
-        for(int i=0;i<this->allLines[row]->plants.size();i++)
+        for(auto i=this->allLines[row]->plants.begin();i!=this->allLines[row]->plants.end();i++)
         {
-            if(this->allLines[row]->plants[i]->column == col)
+            if((*i)->column == col)
             {
-                this->allLines[row]->plants[i]->plantnode->stopAllActions();
-                delete this->allLines[row]->plants[i];
-                this->allLines[row]->plants.erase(this->allLines[row]->plants.begin()+i);
+                (*i)->plantnode->stopAllActions();
+                delete (*i);
+                this->allLines[row]->plants.erase(i);
+                break;
             }
         }
     }
@@ -207,7 +209,7 @@ void GameScene::onContactMove(float x,float y)
 void GameScene::GenerateFlowerSunShape(float x,float y)
 {
     Sprite* sunNode = Sprite::create("阳光.png");
-    this->SunShapes.pushBack(sunNode);
+    this->SunShapes.push_back(sunNode);
     sunNode->setPosition(x,y);
     sunNode->setContentSize(Size(75, 75));
     this->addChild(sunNode,100);
@@ -222,7 +224,7 @@ void GameScene::GenerateAutomaticSunShape()
     y = rand()%(Lawn_Top/2) - Lawn_Top;
     sunNode->setPosition(x,780);
     sunNode->setContentSize(Size(75, 75));
-    this->SunShapes.pushBack(sunNode);
+    this->SunShapes.push_back(sunNode);
     this->addChild(sunNode,100);
     sunNode->runAction(MoveBy::create(-y/30, Vec2(0, y)));
 }

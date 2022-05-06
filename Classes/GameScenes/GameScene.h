@@ -1,4 +1,4 @@
-﻿#ifndef __GameScene_H__
+#ifndef __GameScene_H__
 #define __GameScene_H__
 
 #include "cocos2d.h"
@@ -100,7 +100,7 @@ public:
     bool isCardsReady[6] = {true,false,false,false,false,false};
     
     //所有阳光
-    cocos2d::Vector<cocos2d::Sprite*> SunShapes;
+    std::vector<cocos2d::Sprite*> SunShapes;
     
     static cocos2d::Scene* createScene(std::string str,int num = 50);
     void GenerateFlowerSunShape(float,float);

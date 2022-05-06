@@ -1,4 +1,4 @@
-﻿#include"Plant.h"
+#include"Plant.h"
 using namespace cocos2d;
 using namespace std;
 
@@ -23,7 +23,8 @@ bool Plant::IsAlive()
 {
     return this->lifeValue > 0;
 }
-//execute返回false时，plant对象就将被删除
+
+
 bool Plant::execute()
 {
     if(IsAlive())

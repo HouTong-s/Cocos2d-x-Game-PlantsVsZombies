@@ -1,4 +1,4 @@
-﻿#include "NormalZombie.h"
+#include "NormalZombie.h"
 #include"../Plants/Plant.h"
 using namespace cocos2d;
 using namespace std;
