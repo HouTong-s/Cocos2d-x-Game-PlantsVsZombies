@@ -21,6 +21,11 @@ void NormalZombie::ExamineToChangeTexture()
 }
 bool NormalZombie::DoSelfTask(vector<Line *> allLines)
 {
+    //如果僵尸走到目的地了也返回false
+    if(this->zombienode->getPosition().x <= 300)
+    {
+        return false;
+    }
     float CurentSpeed = this->speed;
     if(this->isSlowed)
     {
