@@ -9,7 +9,7 @@ protected:
     virtual bool DoSelfTask(std::vector<Line*>);
 public:
     NormalZombie(int,cocos2d::Sprite*);
-    ~NormalZombie();
+    virtual ~NormalZombie();
 };
 
 #endif
